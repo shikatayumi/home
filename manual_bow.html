@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>取扱説明書 - 鹿田弓道部 弓管理</title>
+  <style>
+    /* 全体設定 */
+    body {
+      background-color: #fafafa;
+      color: #333;
+      font-family: 'Helvetica Neue', 'Noto Sans JP', sans-serif;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #1a237e;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 22px;
+      color: #1a237e;
+      letter-spacing: 2px;
+    }
+    .header p {
+      margin: 5px 0 0;
+      font-size: 13px;
+      color: #555;
+    }
+
+    /* ステップカード */
+    .step {
+      background: #fff;
+      border: 1px solid #eaeaea;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .step h2 {
+      font-size: 16px;
+      color: #1a237e;
+      margin-top: 0;
+      border-left: 4px solid #1a237e;
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .step p {
+      font-size: 13px;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    /* モックアップUI（ダークモード再現） */
+    .mockup {
+      background: #0d0d0d;
+      color: #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      font-size: 12px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    }
+    
+    /* ハイライトアニメーション */
+    .highlight {
+      border: 2px solid #e53935;
+      border-radius: 4px;
+      position: relative;
+      animation: pulse 2s infinite;
+      z-index: 10;
+    }
+    .highlight::after {
+      content: "Tap!";
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      background: #e53935;
+      color: #fff;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.6); }
+      70% { box-shadow: 0 0 0 6px rgba(229, 57, 53, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
+    }
+
+    /* UIパーツ群 */
+    .m-select {
+      background: rgba(10,10,10,0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #aaa;
+      padding: 6px 12px;
+      border-radius: 30px;
+      display: inline-block;
+      margin: 4px;
+    }
+    .m-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .m-bow-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px auto;
+      width: fit-content;
+    }
+    .m-bow-shape {
+      border: 1px solid #b71c1c;
+      border-radius: 3px;
+      width: 12px;
+      height: 120px;
+      position: relative;
+      margin-bottom: 15px;
+    }
+    .m-bow-shape::after {
+      content: '';
+      position: absolute;
+      left: 18px; top: 5%; bottom: 5%; width: 1px;
+      background: rgba(255,255,255,0.3);
+    }
+    .m-bow-grip {
+      position: absolute; bottom: 35%; left: -2px; right: -2px; height: 30px;
+      background: #0d0d0d; border: 1px solid #b71c1c;
+    }
+    .m-bow-info { text-align: center; }
+    .m-bow-power {
+      background: #b71c1c; color: #fff; padding: 2px 8px; border-radius: 12px;
+      font-size: 10px; font-weight: bold; margin-top: 4px; display: inline-block;
+    }
+    
+    .m-modal {
+      background: #141414;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .m-input {
+      background: #0a0a0a; border: 1px solid #333; color: #fff;
+      padding: 10px; border-radius: 4px; width: 100%; box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+    .m-btn {
+      border: 1px solid #fff; color: #fff; padding: 10px; border-radius: 4px;
+      text-align: center; display: block; width: 100%; box-sizing: border-box; margin-bottom: 10px;
+    }
+    .m-btn-outline {
+      border: 1px solid rgba(255,255,255,0.3); color: #ccc;
+    }
+    .m-fab {
+      border: 1px solid #fff; color: #fff; width: 32px; height: 32px;
+      border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    }
+
+    /* 注意事項 */
+    .notes {
+      background: #e8eaf6;
+      border-left: 4px solid #1a237e;
+      padding: 15px;
+      font-size: 13px;
+      border-radius: 4px;
+      color: #333;
+    }
+    .notes ul {
+      margin: 0; padding-left: 20px;
+    }
+
+    /* アイコン用SVG */
+    .icon {
+      width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>鹿田弓道部 弓管理</h1>
+    <p>デジタル弓具庫 取扱説明書</p>
+  </div>
+
+  <p style="font-size: 13px; text-align: center; margin-bottom: 30px;">
+    スマホで弓立ての前を歩くように、弓を探して使用状況を管理できるサービスです。
+  </p>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <h2>
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+      1. 弓を探す・絞り込む
+    </h2>
+    <p>画面上部のメニューから条件を選んで、目当ての弓を絞り込みます。</p>
+    <div class="mockup m-flex">
+      <div class="m-select">使用者学科: 医 ▼</div>
+      <div class="m-select highlight">弓力: 13kg ▼</div>
+      <div class="m-select">状態: 空き ▼</div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <h2>
+      <svg class="icon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      2. 弓の詳細を見る
+    </h2>
+    <p>表示された弓のイラストをタップすると、詳細情報が開きます。</p>
+    <div class="mockup">
+      <div class="m-bow-wrapper highlight">
+        <div class="m-bow-shape"><div class="m-bow-grip"></div></div>
+        <div class="m-bow-info">
+          <div>A-001</div>
+          <div class="m-bow-power">13kg</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <h2>
+      <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      3. 弓を使う・手放す
+    </h2>
+    <p>詳細画面から自分の名前を選択し、使用開始・終了の操作を行います。</p>
+    <div class="mockup">
+      <div class="m-modal">
+        <div style="font-size: 20px; margin-bottom: 10px;">A-001</div>
+        <div class="highlight" style="margin-bottom: 10px;">
+          <div class="m-input">対象の部員を選択 ▼</div>
+        </div>
+        <div class="m-btn m-btn-primary highlight" style="margin-bottom: 10px;">追加 (使用)</div>
+        <div class="m-btn m-btn-outline">手放す (解除)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <h2>
+      <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      4. 一覧をダウンロード
+    </h2>
+    <p>メニューのダウンロードアイコンから、学科別・学年別の弓使用状況を保存できます。</p>
+    <div class="mockup m-flex" style="justify-content: flex-end;">
+      <div class="m-fab highlight">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      </div>
+      <div class="m-fab">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <h2>
+      <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      5. 弓の登録・編集 (管理者のみ)
+    </h2>
+    <p>鍵アイコンからPINコードでログインすると、弓の追加(＋)や情報編集が可能になります。</p>
+    <div class="mockup">
+      <div class="m-modal">
+        <div style="font-size: 16px; margin-bottom: 15px; text-align: center;">管理者ログイン</div>
+        <div class="m-input">管理者を選択 ▼</div>
+        <div class="m-input highlight">PIN (4桁)</div>
+        <div class="m-btn m-btn-primary">認証</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 注意事項 -->
+  <div class="notes">
+    <strong>基本ルール</strong>
+    <ul>
+      <li>弓を使い始める時、終わった時は必ずシステム上で操作してください。</li>
+      <li>すでに他の人が使っている弓に「追加」すると、共有状態になります。</li>
+      <li>全員が「手放す」と自動的に「空き」状態に戻ります。</li>
+    </ul>
+  </div>
+
+</body>
+</html>

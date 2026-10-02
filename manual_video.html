@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鹿田弓道部動画ログ - ご利用ガイド</title>
+  <style>
+    /* ベース設定 */
+    :root {
+      --bg-color: #fafafa;
+      --text-main: #333333;
+      --accent-indigo: #1c2c5b; /* 深い藍色 */
+      --highlight-red: #e60012; /* 強調用の赤 */
+      --app-bg: #0f0f0f;
+      --app-card: #212121;
+      --app-text: #f1f1f1;
+      --app-border: #333333;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* レイアウト */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* ヘッダー */
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--accent-indigo);
+      padding-bottom: 16px;
+    }
+    
+    .header h1 {
+      color: var(--accent-indigo);
+      font-size: 1.5rem;
+      margin: 0 0 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .overview {
+      font-size: 0.9rem;
+      color: #555;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    /* ステップ解説セクション */
+    .step-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .step-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+      color: var(--accent-indigo);
+    }
+
+    .step-num {
+      background: var(--accent-indigo);
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    /* UIモックアップ (アプリ画面の再現) */
+    .mockup-container {
+      background-color: var(--app-bg);
+      color: var(--app-text);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--app-border);
+      position: relative;
+      user-select: none;
+    }
+
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      border-bottom: 1px solid var(--app-border);
+    }
+
+    .mockup-logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .mockup-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mockup-search {
+      background: #121212;
+      border: 1px solid var(--app-border);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      max-width: 150px;
+    }
+
+    .mockup-btn {
+      background: var(--app-card);
+      border: 1px solid transparent;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--app-text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mockup-btn-icon {
+      padding: 6px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mockup-body {
+      padding: 16px;
+    }
+
+    /* モーダルのモックアップ */
+    .mockup-modal-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .mockup-modal {
+      background: var(--app-card);
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--app-border);
+      overflow: hidden;
+    }
+
+    .mockup-modal-title {
+      padding: 12px;
+      border-bottom: 1px solid var(--app-border);
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .mockup-modal-content {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .mockup-input {
+      background: #121212;
+      border: 1px solid var(--app-border);
+      padding: 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: #888;
+    }
+    
+    .mockup-radios {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mockup-radio {
+      border: 1px solid var(--app-border);
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 0.7rem;
+      background: #121212;
+    }
+
+    .mockup-radio.active {
+      border-color: #3b82f6;
+    }
+
+    .mockup-modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      padding: 12px;
+      gap: 8px;
+      border-top: 1px solid var(--app-border);
+    }
+
+    .mockup-save-btn {
+      background: #2563eb;
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    /* 注目要素のハイライト (赤枠アニメーション) */
+    .highlight {
+      position: relative;
+      border: 2px solid var(--highlight-red) !important;
+      border-radius: inherit;
+      animation: pulse-red 2s infinite;
+      z-index: 10;
+    }
+
+    .highlight::after {
+      content: "ここをタップ！";
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--highlight-red);
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+    
+    /* 下向きの矢印 */
+    .highlight::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--highlight-red) transparent transparent transparent;
+    }
+
+    /* URL用ハイライトテキスト */
+    .highlight-url::after {
+      content: "URLを貼り付け";
+      top: -24px;
+    }
+
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 0 rgba(230, 0, 18, 0.6); }
+      70% { box-shadow: 0 0 0 6px rgba(230, 0, 18, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(230, 0, 18, 0); }
+    }
+
+    /* 注意事項 */
+    .notice {
+      background: #fde8e8;
+      border-left: 4px solid var(--highlight-red);
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: #9b1c1c;
+      font-weight: bold;
+      border-radius: 0 8px 8px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    /* SVGアイコンスタイル共通化 */
+    svg {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <header class="header">
+    <h1>
+      <svg viewBox="0 0 24 24" width="24" height="24" stroke="var(--highlight-red)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle>
+      </svg>
+      鹿田弓道部動画ログ
+    </h1>
+    <p class="overview">部員のYouTube動画を持ち寄り、一覧化・検索できるポータルサイトです。</p>
+  </header>
+
+  <!-- Step 1 -->
+  <section class="step-card">
+    <h2 class="step-title"><span class="step-num">1</span>見る・探す</h2>
+    
+    <div class="mockup-container">
+      <div class="mockup-header">
+        <div class="mockup-logo">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="#ff0000" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        </div>
+        <div class="mockup-actions">
+          <div class="mockup-search highlight" style="border-radius: 20px;">
+            <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            検索
+          </div>
+          <div class="mockup-btn-icon highlight" style="border-radius: 50%; background: var(--app-card);">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-body" style="height: 60px; display: flex; align-items: center; justify-content: center;">
+        <span style="color: #666; font-size: 0.8rem;">動画一覧エリア</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 2 -->
+  <section class="step-card">
+    <h2 class="step-title"><span class="step-num">2</span>追加する</h2>
+    
+    <div class="mockup-container">
+      <div class="mockup-header">
+        <div class="mockup-logo">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="#ff0000" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+          Kyudo
+        </div>
+        <div class="mockup-actions">
+          <div class="mockup-btn highlight" style="background: #272727;">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="#ff0000" stroke-width="3" fill="none"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            動画を追加
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 3 -->
+  <section class="step-card">
+    <h2 class="step-title"><span class="step-num">3</span>情報を登録する</h2>
+    
+    <div class="mockup-container" style="height: 280px;">
+      <div class="mockup-modal-overlay">
+        <div class="mockup-modal">
+          <div class="mockup-modal-title">動画の登録</div>
+          <div class="mockup-modal-content">
+            
+            <div class="mockup-input highlight highlight-url">
+              https://youtu.be/...
+            </div>
+            
+            <div class="mockup-radios highlight" style="padding: 4px;">
+              <div class="mockup-radio active">
+                <span style="display:inline-block; width:8px; height:8px; background:#3b82f6; border-radius:50%; margin-right:4px;"></span>試合
+              </div>
+              <div class="mockup-radio">強練</div>
+            </div>
+
+            <div style="font-size:0.7rem; color:#888;">
+              <div style="display:flex; gap:4px; margin-top:4px;">
+                <span style="background:#272727; padding:2px 8px; border-radius:12px;">西医体</span>
+                <span style="background:#272727; padding:2px 8px; border-radius:12px;">インカレ</span>
+              </div>
+            </div>
+            
+          </div>
+          <div class="mockup-modal-footer">
+            <div style="font-size:0.75rem; color:#888; padding:6px;">キャンセル</div>
+            <div class="mockup-save-btn highlight" style="animation-delay: 1s;">保存する</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="notice">
+    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" style="flex-shrink: 0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+    <div>
+      アップロードするYouTube動画は、必ず「限定公開」に設定してください。
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

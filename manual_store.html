@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>部内物品システム 取扱説明書</title>
+<style>
+  :root {
+    --bg-color: #fafafa;
+    --text-color: #333333;
+    --accent-color: #1a2c4c; /* 深い藍色 */
+    --mockup-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --highlight-color: #d32f2f;
+    --button-bg: #546e7a;
+    --tab-bg: #f5f5f5;
+  }
+
+  body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  h1 {
+    font-size: 22px;
+    color: var(--accent-color);
+    margin-bottom: 5px;
+  }
+
+  .summary {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .step-section {
+    margin-bottom: 40px;
+  }
+
+  .step-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .step-number {
+    background-color: var(--accent-color);
+    color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  /* Mockup UI Styles */
+  .mockup {
+    background: var(--mockup-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    pointer-events: none; /* モックアップなので操作不可に */
+  }
+
+  .m-label {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .m-input, .m-select, .m-textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fafafa;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    color: #888;
+    font-size: 14px;
+  }
+
+  .m-tabs {
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 15px;
+  }
+
+  .m-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background: var(--tab-bg);
+    color: #888;
+    font-size: 12px;
+    font-weight: bold;
+    border-right: 1px solid var(--border-color);
+  }
+
+  .m-tab:last-child {
+    border-right: none;
+  }
+
+  .m-tab.active {
+    background: #455a64;
+    color: #fff;
+  }
+
+  .m-card {
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .m-card-inner {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .m-img {
+    width: 60px;
+    height: 60px;
+    background: #eee;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .m-card-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .m-card-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .m-flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafafa;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+  }
+
+  .m-btn {
+    background: var(--button-bg);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+  }
+
+  .m-btn-small {
+    width: auto;
+    padding: 8px 16px;
+    background: #607d8b;
+  }
+
+  .m-cart-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  /* Highlight Styles */
+  .highlight {
+    border: 2px solid var(--highlight-color) !important;
+    position: relative;
+    border-radius: 4px;
+    animation: pulse 2s infinite;
+    z-index: 1;
+  }
+
+  .highlight::after {
+    content: "ここを入力・タップ";
+    position: absolute;
+    top: -24px;
+    left: -2px;
+    background: var(--highlight-color);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    white-space: nowrap;
+    animation: none;
+  }
+
+  .highlight-click::after {
+    content: "ここをタップ";
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(211, 47, 47, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+  }
+
+  /* 注意事項 */
+  .note {
+    background: #eceff1;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #546e7a;
+    border-left: 4px solid #546e7a;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>部内物品システム</h1>
+    <div class="summary">弓具の購入や、返品・リクエストの申請ができます。</div>
+  </header>
+
+  <!-- Step 1 -->
+  <div class="step-section">
+    <div class="step-title"><span class="step-number">1</span> 氏名を入力</div>
+    <div class="mockup">
+      <span class="m-label">氏名 (必須):</span>
+      <div class="m-input highlight">自分の名前</div>
+      <span class="m-label">メールアドレス (到着通知用):</span>
+      <div class="m-input">kyudo@example.com</div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step-section">
+    <div class="step-title"><span class="step-number">2</span> 商品を探して追加</div>
+    <div class="mockup">
+      <div class="m-select highlight highlight-click">弦</div>
+      
+      <div class="m-card">
+        <div class="m-card-inner">
+          <div class="m-img">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+          </div>
+          <div>
+            <div class="m-card-title">響 (弦)</div>
+            <div style="display:flex; gap:5px; margin-top:5px;">
+              <div class="m-select" style="padding:4px; margin:0;">1号</div>
+              <div class="m-select" style="padding:4px; margin:0;">並</div>
+            </div>
+          </div>
+        </div>
+        <div class="m-flex-between">
+          <div>
+            <div class="m-card-price">500円</div>
+            <div style="font-size:11px; color:#388e3c;">在庫: 3</div>
+          </div>
+          <div class="m-btn m-btn-small highlight highlight-click">追加</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step-section">
+    <div class="step-title"><span class="step-number">3</span> 注文を確定</div>
+    <div class="mockup" style="background: #fafafa;">
+      <h3 style="margin-top:0; font-size:14px; color:#455a64;">カート (1点)</h3>
+      <div class="m-cart-item">
+        <div>
+          <b>響</b><br>
+          <span style="color:#777;">500円 × 1 = 500円</span>
+        </div>
+        <div class="m-btn m-btn-small" style="background:#9e9e9e; padding:4px 8px; font-size:11px;">削除</div>
+      </div>
+      <div style="text-align:right; font-weight:bold; margin-bottom:15px; color:#333;">合計: <span style="color:#b71c1c;">500</span> 円</div>
+      <div class="m-btn highlight highlight-click">注文を確定する</div>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="step-section">
+    <div class="step-title"><span class="step-number">4</span> 返品・要望がある場合</div>
+    <div class="mockup">
+      <div class="m-tabs">
+        <div class="m-tab">お買い物</div>
+        <div class="m-tab active highlight highlight-click" style="z-index: 2;">連絡・返品</div>
+      </div>
+      
+      <span class="m-label">要件の種類:</span>
+      <div class="m-select">返品申請</div>
+      
+      <span class="m-label">対象の商品名や内容:</span>
+      <div class="m-textarea highlight" style="height: 60px;">色が合わなかったので返品します</div>
+      
+      <div class="m-btn highlight highlight-click" style="background:#795548;">管理係に送信</div>
+    </div>
+  </div>
+
+  <!-- Note -->
+  <div class="note">
+    <svg style="vertical-align: middle; margin-right: 5px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+    返品申請をした商品は、管理係に手渡しまたは部室の所定の場所に返却してください。
+  </div>
+
+</div>
+
+</body>
+</html>

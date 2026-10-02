@@ -4,198 +4,211 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>鹿田弓道部</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #fcfcfc;
+            background-color: #fafafa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
             overflow-x: hidden;
         }
-        #bg-canvas {
+        canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            pointer-events: none; /* Prevent canvas from blocking clicks */
+            pointer-events: none;
         }
-        /* Add a slight backdrop blur to the main panel for better readability over the animation */
-        .glass-panel {
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        h1 {
+            text-align: center;
+            font-size: 20px;
+            font-weight: normal;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            color: #1c2c5b;
+        }
+        .service-group {
+            margin-bottom: 25px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .service-group:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .link-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            text-decoration: none;
+            color: #333;
+        }
+        .icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            fill: #1c2c5b;
+            flex-shrink: 0;
+        }
+        .title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .manual-link {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            text-decoration: none;
+            color: #1c2c5b;
+            font-size: 13px;
+            border-top: 1px solid #e0e0e0;
+            transition: background-color 0.2s;
+        }
+        .manual-link:hover {
+            background-color: #e9ecef;
+        }
+        .manual-icon {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
         }
     </style>
 </head>
-<body class="text-gray-800 antialiased min-h-screen flex items-center justify-center p-6">
+<body>
+    <canvas id="arrowCanvas"></canvas>
+    <div class="container">
+        <h1>鹿田弓道部</h1>
 
-    <canvas id="bg-canvas"></canvas>
-
-    <div class="w-full max-w-md glass-panel rounded-2xl shadow-sm border border-gray-100 p-8 sm:p-12 z-10">
-        
-        <h1 class="text-center text-xl font-medium tracking-widest text-gray-700 mb-10">
-            鹿田弓道部
-        </h1>
-
-        <div class="space-y-4">
-            
-            <!-- Link 1: 弓管理 -->
-            <a href="https://script.google.com/macros/s/AKfycbwdK8TA86Ny6WicUYz1OkGidV1cYvrIAjrj7WlppSKk7u2uwJpX_saihiVg7QOn9KOf/exec" target="_blank" rel="noopener noreferrer" class="group flex items-center p-4 bg-white/90 rounded-xl hover:bg-gray-50 transition-colors duration-200 border border-gray-100 hover:border-gray-300 shadow-sm">
-                <div class="flex-shrink-0 text-gray-400 group-hover:text-gray-600 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
-                    </svg>
-                </div>
-                <span class="ml-4 text-base font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
-                    弓管理
-                </span>
+        <!-- ①：鹿田弓道部 弓管理 -->
+        <div class="service-group">
+            <a href="https://script.google.com/macros/s/AKfycbwdK8TA86Ny6WicUYz1OkGidV1cYvrIAjrj7WlppSKk7u2uwJpX_saihiVg7QOn9KOf/exec" class="link-item" target="_blank" rel="noopener noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+                <span class="title">弓管理</span>
             </a>
-
-            <!-- Link 2: 弓具購入サイト -->
-            <a href="https://script.google.com/macros/s/AKfycbwOhbhJGcm5EKViBada7EOOB0mtEmG-9fiUZofJ8pkSeXogwCXDuHm_5YBTSzc4MwBSXw/exec" target="_blank" rel="noopener noreferrer" class="group flex items-center p-4 bg-white/90 rounded-xl hover:bg-gray-50 transition-colors duration-200 border border-gray-100 hover:border-gray-300 shadow-sm">
-                <div class="flex-shrink-0 text-gray-400 group-hover:text-gray-600 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                    </svg>
-                </div>
-                <span class="ml-4 text-base font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
-                    弓具購入サイト
-                </span>
+            <a href="manual_bow.html" class="manual-link" target="_blank">
+                <svg class="manual-icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                取扱説明書を見る
             </a>
+        </div>
 
-            <!-- Link 3: 試合・強練動画共有サイト -->
-            <a href="https://script.google.com/macros/s/AKfycbyIV0Ugs-6AfO5E4DN1AT78dCXlYvqJjaH9R4gH7BgY9qx2jhNK28MaQtQWlq1Vmy3w/exec" target="_blank" rel="noopener noreferrer" class="group flex items-center p-4 bg-white/90 rounded-xl hover:bg-gray-50 transition-colors duration-200 border border-gray-100 hover:border-gray-300 shadow-sm">
-                <div class="flex-shrink-0 text-gray-400 group-hover:text-gray-600 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <span class="ml-4 text-base font-medium text-gray-700 group-hover:text-gray-900 transition-colors">
-                    試合・強練動画共有サイト
-                </span>
+        <!-- ②：弓具購入サイト -->
+        <div class="service-group">
+            <a href="https://script.google.com/macros/s/AKfycbwOhbhJGcm5EKViBada7EOOB0mtEmG-9fiUZofJ8pkSeXogwCXDuHm_5YBTSzc4MwBSXw/exec" class="link-item" target="_blank" rel="noopener noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                </svg>
+                <span class="title">弓具購入サイト</span>
             </a>
+            <a href="manual_store.html" class="manual-link" target="_blank">
+                <svg class="manual-icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                取扱説明書を見る
+            </a>
+        </div>
 
+        <!-- ③：試合・強練動画共有サイト -->
+        <div class="service-group">
+            <a href="https://script.google.com/macros/s/AKfycbyIV0Ugs-6AfO5E4DN1AT78dCXlYvqJjaH9R4gH7BgY9qx2jhNK28MaQtQWlq1Vmy3w/exec" class="link-item" target="_blank" rel="noopener noreferrer">
+                <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                </svg>
+                <span class="title">試合・強練動画共有サイト</span>
+            </a>
+            <a href="manual_video.html" class="manual-link" target="_blank">
+                <svg class="manual-icon" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                取扱説明書を見る
+            </a>
         </div>
     </div>
 
     <script>
-        window.onload = function() {
-            const canvas = document.getElementById('bg-canvas');
-            const ctx = canvas.getContext('2d');
+        const canvas = document.getElementById('arrowCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const arrows = [];
+        const numArrows = 300;
+
+        for (let i = 0; i < numArrows; i++) {
+            arrows.push({
+                x: Math.random() * canvas.width * 2,
+                y: Math.random() * canvas.height,
+                length: Math.random() * 40 + 20,
+                speed: Math.random() * 2 + 1,
+                opacity: Math.random() * 0.15 + 0.05
+            });
+        }
+
+        function drawArrow(x, y, length, opacity) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + length, y);
             
-            let width, height;
-            let arrows = [];
-            const ARROW_COUNT = 300; // Requirement: Lots of arrows
+            ctx.moveTo(x + length, y);
+            ctx.lineTo(x + length - 5, y - 3);
+            ctx.moveTo(x + length, y);
+            ctx.lineTo(x + length - 5, y + 3);
+            
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + 5, y - 3);
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + 5, y + 3);
 
-            // Resize canvas to fill window
-            function resize() {
-                width = window.innerWidth;
-                height = window.innerHeight;
-                canvas.width = width;
-                canvas.height = height;
-            }
-            window.addEventListener('resize', resize);
-            resize();
+            ctx.strokeStyle = `rgba(139, 125, 107, ${opacity})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
 
-            class Arrow {
-                constructor() {
-                    this.init(true);
-                }
-
-                init(randomX = false) {
-                    // Randomize size scale (0.3 to 1.2)
-                    this.scale = Math.random() * 0.9 + 0.3;
-                    
-                    // Start from the right side, or random spread if initial
-                    this.x = randomX ? Math.random() * width : width + (Math.random() * 200 + 50);
-                    this.y = Math.random() * height;
-                    
-                    // Speed: Flying right to left (negative x movement). Parallax effect based on scale
-                    this.speed = (Math.random() * 1.5 + 0.5) * this.scale;
-                    
-                    // Very low saturation/opacity: faint grayish brown
-                    const opacity = Math.random() * 0.15 + 0.05; // 0.05 to 0.2
-                    this.color = `rgba(160, 150, 140, ${opacity})`;
-                    this.lineWidth = Math.max(1, 1.5 * this.scale);
-                }
-
-                draw() {
-                    ctx.strokeStyle = this.color;
-                    ctx.fillStyle = this.color;
-                    ctx.lineWidth = this.lineWidth;
-                    ctx.lineCap = "round";
-                    ctx.lineJoin = "round";
-
-                    // Base length of an arrow
-                    const length = 60 * this.scale;
-                    const headSizeX = 8 * this.scale;
-                    const headSizeY = 4 * this.scale;
-                    const featherOffset = 50 * this.scale;
-                    
-                    ctx.beginPath();
-                    
-                    // 1. Shaft (from tip to tail)
-                    // Tip is at (this.x, this.y). Tail is at (this.x + length, this.y)
-                    ctx.moveTo(this.x, this.y);
-                    ctx.lineTo(this.x + length, this.y);
-                    ctx.stroke();
-
-                    // 2. Arrowhead (pointing left)
-                    ctx.beginPath();
-                    ctx.moveTo(this.x, this.y);
-                    ctx.lineTo(this.x + headSizeX, this.y - headSizeY);
-                    ctx.lineTo(this.x + headSizeX, this.y + headSizeY);
-                    ctx.closePath();
-                    ctx.fill();
-
-                    // 3. Fletching (feathers near the tail)
-                    ctx.beginPath();
-                    // Top feather lines
-                    ctx.moveTo(this.x + featherOffset, this.y);
-                    ctx.lineTo(this.x + featherOffset + 6 * this.scale, this.y - 5 * this.scale);
-                    ctx.moveTo(this.x + featherOffset + 4 * this.scale, this.y);
-                    ctx.lineTo(this.x + length, this.y - 5 * this.scale);
-                    
-                    // Bottom feather lines
-                    ctx.moveTo(this.x + featherOffset, this.y);
-                    ctx.lineTo(this.x + featherOffset + 6 * this.scale, this.y + 5 * this.scale);
-                    ctx.moveTo(this.x + featherOffset + 4 * this.scale, this.y);
-                    ctx.lineTo(this.x + length, this.y + 5 * this.scale);
-                    
-                    ctx.stroke();
-                }
-
-                update() {
-                    this.x -= this.speed;
-                    // Reset if it goes completely off screen to the left
-                    if (this.x < -100) {
-                        this.init();
-                    }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < numArrows; i++) {
+                const arrow = arrows[i];
+                drawArrow(arrow.x, arrow.y, arrow.length, arrow.opacity);
+                
+                arrow.x -= arrow.speed;
+                
+                if (arrow.x + arrow.length < 0) {
+                    arrow.x = canvas.width + Math.random() * 200;
+                    arrow.y = Math.random() * canvas.height;
                 }
             }
-
-            for (let i = 0; i < ARROW_COUNT; i++) {
-                arrows.push(new Arrow());
-            }
-
-            function animate() {
-                // Clear the canvas on each frame
-                ctx.clearRect(0, 0, width, height);
-
-                // Update and draw all arrows
-                for (let i = 0; i < arrows.length; i++) {
-                    arrows[i].update();
-                    arrows[i].draw();
-                }
-
-                requestAnimationFrame(animate);
-            }
-
-            // Start animation
-            animate();
-        };
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
     </script>
 </body>
 </html>
